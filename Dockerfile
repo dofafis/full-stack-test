@@ -9,7 +9,6 @@ WORKDIR /catalogo
 COPY package*.json ./
 
 RUN npm install
-RUN node insert-redis-from-json/script.js
 
 # If you are building your code for production
 # RUN npm ci --only=production

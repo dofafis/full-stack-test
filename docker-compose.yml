@@ -1,13 +1,31 @@
 version: "2"
 services:
+ mongo-container:
+  image: mongo:3.4.2
+  environment:
+      # provide your credentials here
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=suasenha
+  ports:
+    - "27017:27017"
+  volumes:
+  command: mongod
  catalogo:
   build: .
   ports:
    - "3000:3000"
+  depends_on:
+   - "redis"
   links:
    - redis:redis
+  networks:
+   - catalog
  redis:
   image: "redis:alpine"
   command: redis-server --requirepass suasenha --appendonly yes
   ports:
    - "6379:6379"
+  networks:
+   - catalog
+networks:
+ catalog:
