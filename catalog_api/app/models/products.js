@@ -1,4 +1,4 @@
-const Mongoose = require('../../db/mongodb')
+const Mongoose = require('mongoose')
 
 const ProductModel = Mongoose.model("product", {
     imagesSsl: Object,
@@ -52,7 +52,11 @@ const ProductModel = Mongoose.model("product", {
             parents: [Object]
         }
     ],
-    id: String,
+    id: {
+        type: String,
+        unique: true,
+        required: true
+    },
     stock: Object,
     brand: String,
     customBusiness: Object,

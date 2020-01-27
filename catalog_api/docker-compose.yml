@@ -1,23 +1,37 @@
 version: "2"
 services:
- mongo-container:
-  image: mongo:3.4.2
-  environment:
-      # provide your credentials here
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=suasenha
-  ports:
-    - "27017:27017"
-  volumes:
-  command: mongod
- catalogo:
-  build: .
+ catalog_api:
+  build:
+   context: .
+   args:
+    PORT: 3000
+    MONGODB_USER: root
+    MONGODB_PASSWORD: suasenha
+    MONGODB_HOST: mongo
+    MONGODB_PORT: 27017
+    MONGODB_DBNAME: catalog
+    INSERT_PRODUCTS: 1
+    REDIS_PORT: 6379
+    REDIS_HOST: redis
+    REDIS_PASSWORD: suasenha
   ports:
    - "3000:3000"
   depends_on:
    - "redis"
+   - "mongo"
   links:
    - redis:redis
+   - mongo:mongo
+  networks:
+   - catalog
+ mongo:
+  image: mongo:3.4.2
+  environment:
+   - MONGO_INITDB_ROOT_USERNAME=root
+   - MONGO_INITDB_ROOT_PASSWORD=suasenha
+  ports:
+   - "27017:27017"
+  command: mongod
   networks:
    - catalog
  redis:

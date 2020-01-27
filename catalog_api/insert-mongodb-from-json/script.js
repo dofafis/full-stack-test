@@ -1,15 +1,27 @@
 const fs = require('fs')
-const  = require('../app/models')
+const ProductModel = require('../app/models/products')
 
 function getCatalog() {
-    let jsonArrayString = '[' + fs.readFileSync('./insert-redis-from-json/catalog.json', 'utf-8').split('\n').join(',') + ']'
+    let jsonArrayString = '[' + fs.readFileSync('./insert-mongodb-from-json/catalog.json', 'utf-8').split('\n').join(',') + ']'
     let catalog = JSON.parse(jsonArrayString)
     return catalog
 }
 
-function persistProductsFromCatalog() {
+module.exports = function (startServer) {
     let catalog = getCatalog()
-    
-}
 
-module.exports = persistProductsFromCatalog
+    console.log('Registering products to database...')
+    ProductModel.insertMany(catalog)
+        .then(
+            docs => {
+                console.log('Products successfully registered to database.')
+                startServer()
+            }
+        )
+        .catch(
+            error => {
+                console.log('Error while registering products to database. Details:')
+                console.log(error)
+            }
+        )
+}

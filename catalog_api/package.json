@@ -1,5 +1,5 @@
 {
-  "name": "catalogo",
+  "name": "catalog_api",
   "version": "1.0.0",
   "description": "An api to serve a catalog of products using nodejs 10.15.2, Express 4 and Redis",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "catalogo"
+    "url": "full-stack-test"
   },
   "keywords": [
     "nodejs",

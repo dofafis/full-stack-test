@@ -9,6 +9,6 @@ module.exports = function(express, port) {
     setRoutes(app)
 
     app.listen(port, function () {
-        console.log('Catalogo API running on port ' + port)
+        console.log('Catalog API running on port ' + port)
     })
 }
