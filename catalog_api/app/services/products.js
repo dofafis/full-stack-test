@@ -21,7 +21,7 @@ let service = {
                                         status: product[0].status,
                                         categories: product[0].categories
                                     }))
-                                else
+                                else if(req.query.searchType === 'complete')
                                     res.end(JSON.stringify(product[0]))
                             }
                             else
@@ -40,9 +40,9 @@ let service = {
                                 status: product.status,
                                 categories: product.categories
                             }))
-                        else
+                        else if(req.query.searchType === 'complete')
                             res.end(JSON.stringify(product))
-                        }
+                    }
                 }
             )
             .catch(

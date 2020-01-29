@@ -1,5 +1,25 @@
 version: "2"
 services:
+ recommendation_api:
+  build:
+   context: ./recommendation_api
+   args:
+    PORT: 3001
+    REDIS_PORT: 6380
+    REDIS_HOST: redis_recommendation
+    REDIS_PASSWORD: suasenha
+    CATALOG_API_URL: http://catalog_api:3000
+    RANKING_API_URL: https://wishlist.neemu.com/onsite/impulse-core/ranking/
+  ports:
+   - "3001:3001"
+  depends_on:
+   - "redis_recommendation"
+   - "catalog_api"
+  links:
+   - redis_recommendation:redis_recommendation
+   - catalog_api:catalog_api
+  networks:
+   - shared
  catalog_api:
   build:
    context: ./catalog_api
@@ -23,7 +43,7 @@ services:
    - redis_catalog:redis_catalog
    - mongo_catalog:mongo_catalog
   networks:
-   - catalog
+   - shared
  mongo_catalog:
   image: mongo:3.4.2
   environment:
@@ -33,13 +53,20 @@ services:
    - "27017:27017"
   command: mongod
   networks:
-   - catalog
+   - shared
  redis_catalog:
   image: "redis:alpine"
   command: redis-server --requirepass suasenha
   ports:
    - "6379:6379"
   networks:
-   - catalog
+   - shared
+ redis_recommendation:
+  image: "redis:alpine"
+  command: redis-server --requirepass suasenha --port 6380
+  ports:
+   - "6380:6380"
+  networks:
+   - shared
 networks:
- catalog:
+ shared:

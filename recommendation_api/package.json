@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "full-stack-test"
+  },
   "keywords": [
     "nodejs",
     "express",
@@ -14,8 +18,10 @@
   "author": "Lucas Oliveira",
   "license": "ISC",
   "dependencies": {
+    "async": "^3.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "ioredis": "^4.14.1"
+    "ioredis": "^4.14.1",
+    "request": "^2.88.0"
   }
 }

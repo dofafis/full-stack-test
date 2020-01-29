@@ -1,7 +1,5 @@
 let request = require('request')
 
-//'https://wishlist.neemu.com/onsite/impulse-core/ranking/'
-
 module.exports = {
     getProductRanking: function(algorithmType, onSuccess, onError) {
         url = process.env.RANKING_API_URL + algorithmType + '.json'
