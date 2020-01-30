@@ -7,8 +7,9 @@ let service = {
             .then(
                 product => {
                     if(product === null) {
+                        console.log('Not found on redis')
                         ProductModel.find({id: req.params.id.toString()}, function(err, product) {
-                            console.log('MongoDB')
+                            console.log('Querying MongoDB instead')
                             if(err)
                                 res.end(JSON.stringify(err))
                             else if(product.length > 0){
@@ -31,7 +32,7 @@ let service = {
                                 }))
                         })
                     }else{
-                        console.log('Redis')
+                        console.log('Product found on Redis of Catalog API')
                         product = JSON.parse(product)
                         if(req.query.searchType === 'compact')
                             res.end(JSON.stringify({

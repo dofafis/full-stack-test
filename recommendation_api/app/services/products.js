@@ -16,16 +16,19 @@ let service = {
                             .then(
                                 product => {
                                     if(product === null) {
+                                        console.log('Product details not found on Redis')
+
                                         catalogApiIntegration.getProductDetails(item.recommendedProduct.id, 'complete', 
                                             product => {
-                                                console.log(item)
                                                 product = JSON.parse(product)
-                                                redisClient.set(product.id, JSON.stringify(product), 'EX', 60)
-                                                if(product.status === 'available')
+                                                console.log('Connecting to Catalog API instead')
+                                                redisClient.set(product.id, JSON.stringify(product), 'EX', 10)
+                                                if(product.status.toString().toLowerCase() === 'available')
                                                     recommendedProducts.push(product)
                                                 callback()
                                             },
                                             () => {
+                                                console.log('Failed to connect to Catalog API')
                                                 res.end(JSON.stringify({
                                                     status: 500,
                                                     message: 'Failed to connect to Catalog API, try again later'
@@ -34,6 +37,7 @@ let service = {
                                             }
                                         )
                                     }else {
+                                        console.log('Product details found on Redis')
                                         recommendedProducts.push(product)
                                         callback()
                                     }
@@ -43,9 +47,10 @@ let service = {
                                 error => {
                                     catalogApiIntegration.getProductDetails(item.recommendedProduct.id, 'complete', 
                                         product => {
+                                            console.log('Error querying Redis, connecting to Catalog API instead')
                                             product = JSON.parse(product)
-                                            redisClient.set(product.id, JSON.stringify(product), 'EX', 60)
-                                            if(product.status === 'available')
+                                            redisClient.set(product.id, JSON.stringify(product), 'EX', 10)
+                                            if(product.status.toString().toLowerCase() === 'available')
                                                 recommendedProducts.push(product)
                                             callback()
                                         },
