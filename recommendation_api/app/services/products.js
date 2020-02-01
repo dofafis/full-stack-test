@@ -10,7 +10,6 @@ let service = {
             ranking => {
                 recommendedProducts = []
                 ranking = JSON.parse(ranking)
-                ranking = ranking.slice(0, req.query.maxProducts)
                 async.eachSeries(ranking, 
                     (item, callback) => {
                         redisClient.get(item.recommendedProduct.id)
@@ -67,6 +66,7 @@ let service = {
                             )
                     },
                     () => {
+                        recommendedProducts = recommendedProducts.slice(0, parseInt(req.query.maxProducts))
                         res.end(JSON.stringify(recommendedProducts))
                     }
                 )

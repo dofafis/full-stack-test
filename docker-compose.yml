@@ -1,5 +1,18 @@
 version: "2"
 services:
+ frontend:
+  build:
+   context: ./frontend
+   args:
+    PORT: 8080
+  ports:
+   - "8080:8080"
+  depends_on:
+   - "recommendation_api"
+  links:
+   - recommendation_api:recommendation_api
+  networks:
+   - shared
  recommendation_api:
   build:
    context: ./recommendation_api
@@ -54,6 +67,8 @@ services:
   command: mongod
   networks:
    - shared
+  logging:
+   driver: none
  redis_catalog:
   image: "redis:alpine"
   command: redis-server --requirepass suasenha
@@ -61,6 +76,8 @@ services:
    - "6379:6379"
   networks:
    - shared
+  logging:
+   driver: none
  redis_recommendation:
   image: "redis:alpine"
   command: redis-server --requirepass suasenha --port 6380
@@ -68,5 +85,7 @@ services:
    - "6380:6380"
   networks:
    - shared
+  logging:
+   driver: none
 networks:
  shared:

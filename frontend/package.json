@@ -1,0 +1,24 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "A Carousel made with only Javascript, HTML and CSS. PS: .mjs is a javascript module, it allows to import js file from other js files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "full-stack-test"
+  },
+  "keywords": [
+    "HTML",
+    "CSS",
+    "Javascript"
+  ],
+  "author": "Lucas Oliveira",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "http-server": "^0.12.1"
+  }
+}
