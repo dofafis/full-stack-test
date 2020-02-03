@@ -1,6 +1,6 @@
 **Full Stack Test**
 
-This repository contains three project, two APIs/MicroServices and one frontend project to consume from them.
+This repository contains three projects, two APIs/MicroServices and one frontend project to consume from them.
 
 The purpose is to display two carousels of recommended products using only HTML, CSS and JavaScript on the frontend. The list of recommended products, comes from a given endpoint and returns only the ids of the products. The Recommendation API them get these product ids and get details of each product from the Catalog API.
 
