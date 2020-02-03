@@ -16,15 +16,15 @@ On the docker-compose.yml file  your going to notice that there are two Redis co
 
 To run the project, you need to have docker and docker-compose on your machine:
 
-'''
-sudo apt-get install docker.io
-sudo apt-get install docker-compose
-'''
+```
+  sudo apt-get install docker.io
+  sudo apt-get install docker-compose
+```
 
 After verifying that you have these two, you only need to run the command below:
 
-'''
+```
 sudo docker-compose up
-'''
+```
 
 **PS: If you don't use 'sudo', docker-compose errors and doesn't start the services**
